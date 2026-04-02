@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOYX SHOP</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #6c5ce7, #00b894);
+    transition: background 3s ease; /* transition fluide */
+}
+
+header {
+    text-align: center;
+    padding: 25px;
+    background: linear-gradient(135deg, #6c5ce7, #00b894);
+    color: white;
+    transition: background 3s ease; /* transition fluide */
+}
+
+.welcome {
+    text-align: center;
+    background: #00b894;
+    color: white;
+    padding: 15px;
+    font-weight: bold;
+}
+
+.section-title {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1.6em;
+    color: #6c5ce7;
+    font-weight: bold;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.product {
+    background: white;
+    margin: 20px;
+    padding: 25px;
+    width: 300px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+select,input{
+    width:100%;
+    padding:10px;
+    margin-top:8px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    background:#6c5ce7;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+
+.whatsapp-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#25D366;
+    color:white;
+    padding:15px;
+    border-radius:50px;
+    text-decoration:none;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.whatsapp-btn:hover{
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+.whatsapp-channel-btn{
+    position:fixed;
+    bottom:90px;
+    right:20px;
+    width:60px;
+    height:60px;
+    background:white;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>LOYX SHOP</h1>
+<p>Comptes Free Fire & Recharge Diamants</p>
+</header>
+
+<div class="welcome">
+BONJOUR CHER CLIENT, VOICI QUELQUES OPTION POUR VOTRE SATISFACTION.
+</div>
+
+<div class="section-title">🔥 Vente de Comptes Free Fire</div>
+
+<div class="container">
+<div class="product">
+<h3>Compte Free Fire</h3>
+
+<select>
+<option>Wave</option>
+<option>Orange Money</option>
+<option>Moov Money</option>
+</select>
+
+<input placeholder="Nom complet">
+<input placeholder="Gmail">
+<input placeholder="Numéro de téléphone">
+<input placeholder="Critères du compte Free Fire">
+
+<button onclick="order()">Commander</button>
+</div>
+</div>
+
+<div class="section-title">💎 Recharge Diamants Free Fire</div>
+
+<div class="container">
+<div class="product">
+<h3>Recharge Diamants</h3>
+
+<select>
+<option>Wave</option>
+<option>Orange Money</option>
+<option>Moov Money</option>
+<option>ID (envoyer position)</option>
+</select>
+
+<input placeholder="Nom complet">
+<input placeholder="Gmail">
+<input placeholder="Numéro de téléphone">
+<input placeholder="ID du joueur">
+
+<button onclick="sendLocation()">Commander</button>
+</div>
+</div>
+
+<!-- Bouton vers WhatsApp classique -->
+<a class="whatsapp-btn" href="https://wa.me/2250171008982">WhatsApp</a>
+
+<!-- Bouton vers ta chaîne WhatsApp -->
+<a class="whatsapp-channel-btn" href="https://whatsapp.com/channel/0029Vb77sykFHWq09uCVHJ0N">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="30">
+</a>
+
+<script>
+// Commande compte Free Fire
+function order(){
+  const name = document.querySelector('input[placeholder="Nom complet"]').value;
+  const email = document.querySelector('input[placeholder="Gmail"]').value;
+  const phone = document.querySelector('input[placeholder="Numéro de téléphone"]').value;
+  const criteria = document.querySelector('input[placeholder="Critères du compte Free Fire"]').value;
+
+  if(!name || !email || !phone || !criteria){
+    alert("Veuillez remplir tous les champs !");
+    return;
+  }
+
+  const message = `Bonjour je veux commander%0ANom: ${name}%0AGmail: ${email}%0ATéléphone: ${phone}%0ACritères: ${criteria}`;
+  window.open("https://wa.me/2250171008982?text="+message);
+}
+
+// Commande recharge diamants avec géolocalisation
+function sendLocation(){
+  if(navigator.geolocation){
+    const name = document.querySelector('input[placeholder="Nom complet"]').value;
+    const email = document.querySelector('input[placeholder="Gmail"]').value;
+    const phoneInput = document.querySelector('input[placeholder="Numéro de téléphone"]').value;
+    const playerId = document.querySelector('input[placeholder="ID du joueur"]').value;
+
+    if(!name || !email || !phoneInput || !playerId){
+      alert("Veuillez remplir tous les champs !");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(function(position){
+      let latitude = position.coords.latitude;
+      let longitude = position.coords.longitude;
+      let deviceInfo = navigator.userAgent;
+
+      let message =
+        `Bonjour recharge ID%0ANom: ${name}%0AGmail: ${email}%0ATéléphone: ${phoneInput}%0AID Joueur: ${playerId}%0APosition: https://maps.google.com/?q=${latitude},${longitude}%0ADevice: ${deviceInfo}`;
+
+      window.open("https://wa.me/2250171008982?text="+message);
+    });
+  } else {
+    alert("Géolocalisation non supportée");
+  }
+}
+
+// Dégradé de couleurs fluide
+const colors=[
+"#6c5ce7",
+"#00b894",
+"#0984e3",
+"#fd79a8",
+"#e17055",
+"#00cec9",
+"#fab1a0",
+"#55efc4"
+];
+
+let i=0;
+
+setInterval(()=>{
+    i++;
+    const body = document.body;
+    const header = document.querySelector("header");
+
+    body.style.background = `linear-gradient(135deg, ${colors[i % colors.length]}, ${colors[(i+1) % colors.length]})`;
+    header.style.background = `linear-gradient(135deg, ${colors[(i+2) % colors.length]}, ${colors[(i+3) % colors.length]})`;
+}, 3000); // toutes les 3 secondes, la transition CSS rend le changement lent et fluide
+</script>
+
+</body>
+</html>
